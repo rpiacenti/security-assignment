@@ -1,2 +1,1 @@
-# security-assignment
-Courser capstone security-assignment
+# Capstone Demo Application

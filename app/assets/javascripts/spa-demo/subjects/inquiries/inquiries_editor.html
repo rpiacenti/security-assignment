@@ -1,0 +1,55 @@
+<form class="inquiry-form row" name="inquiryform">
+  <div class="inquiry-id row col-lg-12"
+  ng-show="$ctrl.item.id">
+  <label class="col-xs-3">Related Thing:</label>
+  <label>{{$ctrl.thing_name}}</label>
+</div>
+
+<div class="inquiry-id row col-lg-12">
+  <label class="col-xs-3">Question ID:</label>
+  <span class="inquiry_id id">{{$ctrl.item.id}}</span>
+</div>
+
+<div class="inquiry-id row col-lg-12">
+  <label class="col-xs-3">Creation Date:</label>
+  <span class="inquiry_id id">{{$ctrl.item.created_at}}</span>
+</div>
+
+<div class="inquiry-id row col-lg-12">
+  <label class="col-xs-3">Last Modification Date:</label>
+  <span class="inquiry_id id">{{$ctrl.item.updated_at}}</span>
+</div>
+
+<div class="inquiry-question row col-lg-12">
+  <label class="col-xs-3">Question:1{{$ctrl.authz.canUpdateItem($ctrl.item)}}</label>
+  <textarea class="col-xs-9"
+  rows="8"
+  name="inquiry-question"
+  ng-model="$ctrl.item.question"
+  ng-readonly="!$ctrl.authz.canUpdateItem($ctrl.item)"
+  maxlength="2000"
+  pattern=".{5,}" title="5 character minimum for question"/>
+  <span class="invalid">{{$ctrl.item.errors.question}}</span>
+</div>
+
+<div class="inquiry-controls">
+  <span ng-show="$ctrl.authz.authenticated">
+    <span ng-show="$ctrl.item.id"><!-- ng-show="$ctrl.authz.canUpdate" --><!-- ng-show="$ctrl.authz.canDelete" -->
+      <button name="inquiry-update"
+      type="submit"
+      ng-disabled="!inquiryform.$dirty"
+      ng-show="$ctrl.authz.canUpdateItem($ctrl.item)"
+      ng-click="$ctrl.update()">Update Inquiry</button>
+      <button name="inquiry-delete"
+      type="submit"
+      ng-show="$ctrl.authz.canUpdateItem($ctrl.item)"
+      ng-click="$ctrl.remove()">Delete Inquiry</button>
+    </span>
+  </span>
+  <button name="inquiry-clear"
+  type="submit"
+  ng-show="$ctrl.item.id || inquiryform.$dirty"
+  ng-click="$ctrl.back()">Back to Things</button>
+</div>
+
+</form>
